@@ -1,0 +1,32 @@
+ejecutar en poweshell dentro de la carpeta de los .tiff
+
+$mapping = @{
+    "B01"                        = "B01.tif"
+    "B02"                        = "B02.tif"
+    "B03"                        = "B03.tif"
+    "B04"                        = "B04.tif"
+    "B05"                        = "B05.tif"
+    "B06"                        = "B06.tif"
+    "B07"                        = "B07.tif"
+    "B08"                        = "B08.tif"
+    "B8A"                        = "B8A.tif"
+    "B09"                        = "B09.tif"
+    "B11"                        = "B11.tif"
+    "B12"                        = "B12.tif"
+    "NDWI"                       = "NDWI.tif"
+    "SWIR"                       = "SWIR.tif"
+    "True_Color"                 = "TCI.tif"
+    "False_Color"                = "FalseColor.tif"
+    "Ulyssys_Water_Quality_Viewer" = "WaterQuality.tif"
+}
+
+Get-ChildItem *.tiff | ForEach-Object {
+    $old = $_.Name
+    foreach ($key in $mapping.Keys) {
+        if ($old -match $key) {
+            $new = $mapping[$key]
+            Rename-Item $old $new -Force
+            Write-Host "Renombrado: $old → $new"
+        }
+    }
+}
