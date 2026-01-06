@@ -1,0 +1,17 @@
+Imagen tomada a 1km
+Formato de imagen: TIFF (32-bit float)
+Resolución: HIGH (2500 x 1196 px)
+Sistema de coordenadas: UTM 15N (EPSG:32615)
+Resolución proyectada: 14 m/px
+Capas:
+Visibles
+ True color
+ False Color
+ NDWI
+CrudasCrudas
+ B02
+ B03
+ B04
+ B08
+ B11
+ B12
