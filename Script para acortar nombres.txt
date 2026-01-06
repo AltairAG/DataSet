@@ -1,32 +1,40 @@
-ejecutar en poweshell dentro de la carpeta de los .tiff
+# Ejecutar dentro de la carpeta de los .tiff
 
-$mapping = @{
-    "B01"                        = "B01.tif"
-    "B02"                        = "B02.tif"
-    "B03"                        = "B03.tif"
-    "B04"                        = "B04.tif"
-    "B05"                        = "B05.tif"
-    "B06"                        = "B06.tif"
-    "B07"                        = "B07.tif"
-    "B08"                        = "B08.tif"
-    "B8A"                        = "B8A.tif"
-    "B09"                        = "B09.tif"
-    "B11"                        = "B11.tif"
-    "B12"                        = "B12.tif"
-    "NDWI"                       = "NDWI.tif"
-    "SWIR"                       = "SWIR.tif"
-    "True_Color"                 = "TCI.tif"
-    "False_Color"                = "FalseColor.tif"
-    "Ulyssys_Water_Quality_Viewer" = "WaterQuality.tif"
-}
-
+$mapping = @(
+    @{ key = 'B01';  name = 'B01.tif' }
+    @{ key = 'B02';  name = 'B02.tif' }
+    @{ key = 'B03';  name = 'B03.tif' }
+    @{ key = 'B04';  name = 'B04.tif' }
+    @{ key = 'B05';  name = 'B05.tif' }
+    @{ key = 'B06';  name = 'B06.tif' }
+    @{ key = 'B07';  name = 'B07.tif' }
+    @{ key = 'B08';  name = 'B08.tif' }
+    @{ key = 'B8A';  name = 'B8A.tif' }
+    @{ key = 'B09';  name = 'B09.tif' }
+    @{ key = 'B11';  name = 'B11.tif' }
+    @{ key = 'B12';  name = 'B12.tif' }
+    @{ key = 'NDWI'; name = 'NDWI.tif' }
+    @{ key = 'SWIR'; name = 'SWIR.tif' }
+    @{ key = 'True[_\-\s]?Color';  name = 'TrueColor.tif' }
+    @{ key = 'False[_\-\s]?Color'; name = 'FalseColor.tif' }
+    @{ key = 'Ulyssys_Water_Quality_Viewer'; name = 'WaterQuality.tif' }
+)
 Get-ChildItem *.tiff | ForEach-Object {
     $old = $_.Name
-    foreach ($key in $mapping.Keys) {
-        if ($old -match $key) {
-            $new = $mapping[$key]
-            Rename-Item $old $new -Force
-            Write-Host "Renombrado: $old → $new"
+    $renamed = $false
+    foreach ($m in $mapping) {
+        if (-not $renamed -and $old -match $m.key) {
+            $target = $m.name
+            $i = 1
+            # Evitar sobrescritura si hay repetidos
+            while (Test-Path $target) {
+                $base = [System.IO.Path]::GetFileNameWithoutExtension($m.name)
+                $target = "$base`_$i.tif"
+                $i++
+            }
+            Rename-Item $_.FullName $target
+            Write-Host "Renombrado: $old → $target"
+            $renamed = $true
         }
     }
 }
