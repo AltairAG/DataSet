@@ -1,0 +1,12 @@
+Procesos → Rasterizar (vectorial a ráster)
+
+Llenado:
+Capa de entrada → ZonasEntrenamiento
+Campo a usar → clase
+Unidades → Georeferenciadas
+Resolución X / Y → 11
+Extensión → desde B02.tif
+Tipo de dato → Byte
+Pre-inicializar con valor → 255
+NoData → vacío
+Salida → ZonasEntrenamiento.tif
