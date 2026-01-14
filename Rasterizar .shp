@@ -1,10 +1,10 @@
+rasterizar ZonasEntrenamiento.shp
 Procesos → Rasterizar (vectorial a ráster)
-
 Llenado:
 Capa de entrada → ZonasEntrenamiento
 Campo a usar → clase
-Unidades → Georeferenciadas
-Resolución X / Y → 11
+Unidades → pixeles 
+Resolución X / Y → 2500 x 2562
 Extensión → desde B02.tif
 Tipo de dato → Byte
 Pre-inicializar con valor → 255
